@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+
+  <title>Frontend Mentor | Browser extensions manager UI</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    :root {
+      /* Dark theme (default) */
+      --bg-primary: hsl(227, 75%, 14%);
+      --bg-secondary: hsl(225, 23%, 24%);
+      --bg-tertiary: hsl(226, 11%, 37%);
+      --text-primary: white;
+      --text-secondary: white;
+      --card-bg: hsl(225, 23%, 24%);
+      --filter-btn-bg: hsl(225, 23%, 24%);
+      --filter-btn-active: hsl(15, 85%, 55%);
+      --remove-btn-border: white;
+      --body-bg: white;
+      --border-color: transparent;
+      --card-border: none;
+      --header-border: none;
+      --filter-btn-border: none;
+    }
+
+    [data-theme="light"] {
+      /* Light theme */
+      --bg-primary: hsl(0, 0%, 100%);
+      --bg-secondary: hsl(0, 0%, 98%);
+      --bg-tertiary: hsl(0, 0%, 95%);
+      --text-primary: hsl(227, 75%, 14%);
+      --text-secondary: hsl(227, 75%, 14%);
+      --card-bg: hsl(0, 0%, 100%);
+      --filter-btn-bg: hsl(0, 0%, 95%);
+      --filter-btn-active: hsl(15, 85%, 55%);
+      --remove-btn-border: hsl(227, 75%, 14%);
+      --body-bg: hsl(0, 0%, 98%);
+      --border-color: hsl(0, 0%, 90%);
+      --card-border: 1px solid hsl(0, 0%, 90%);
+      --header-border: 1px solid hsl(0, 0%, 90%);
+      --filter-btn-border: 1px solid hsl(0, 0%, 90%);
+    }
+
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+
+    body {
+      background-color: var(--body-bg);
+      font-family: "Noto Sans", sans-serif;
+      transition: background-color 0.3s ease;
+    }
+
+    .wrapper {
+      width: 1440px;
+      margin: auto;
+      background-color: var(--bg-primary);
+      transition: background-color 0.3s ease;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      background-color: var(--bg-primary);
+      width: 80%;
+      margin: auto;
+      transition: background-color 0.3s ease;
+    }
+
+    .header {
+      display: flex;
+      background-color: var(--bg-secondary);
+      padding: 10px;
+      justify-content: space-between;
+      align-items: center;
+      height: 48px;
+      margin-top: 20px;
+      border-radius: 10px;
+      border: var(--header-border);
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .header img,
+    .header .theme-wrapper img {
+      width: auto;
+      display: block;
+    }
+
+    .theme-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      background-color: var(--bg-tertiary);
+      aspect-ratio: 1 / 1;
+      border-radius: 10px;
+      border: var(--header-border);
+      cursor: pointer;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .theme-wrapper:hover {
+      background-color: var(--bg-secondary);
+    }
+
+    .theme-switcher {
+      transition: transform 0.3s ease;
+    }
+
+    .body {
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+      margin-top: 40px;
+      transition: color 0.3s ease;
+    }
+
+    .body-header {
+      display: flex;
+      flex-direction: row;
+      font-size: 32px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .body-header-title {
+      color: var(--text-primary);
+      transition: color 0.3s ease;
+    }
+
+    .status-filter {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+    }
+
+    .status-filter .btn {
+      font-size: 16px;
+      font-weight: 300;
+      gap: 10px;
+      border-radius: 20px;
+      background-color: var(--filter-btn-bg);
+      color: var(--text-primary);
+      padding: 4px 10px;
+      cursor: pointer;
+      border: var(--filter-btn-border);
+      transition: background-color 0.2s ease, transform 0.1s ease, color 0.3s ease, border-color 0.3s ease;
+      user-select: none;
+    }
+
+    .status-filter .btn:hover {
+      background-color: var(--bg-tertiary);
+      transform: translateY(-1px);
+    }
+
+    .status-filter .btn.active {
+      background-color: var(--filter-btn-active);
+      color: white;
+    }
+
+    .status-filter .btn.active:hover {
+      background-color: hsl(15, 85%, 50%);
+    }
+
+    .body-content {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-start;
+      margin-bottom: 40px;
+    }
+
+    .body-content > .card {
+      height: auto;
+      width: calc((100% - 20px) / 3);
+      background-color: var(--card-bg);
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      border-radius: 20px;
+      border: var(--card-border);
+      gap: 40px;
+      box-sizing: border-box;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .row1 {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .row2 {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card img {
+      margin-right: 20px;
+    }
+
+    .card .title {
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--text-primary);
+      transition: color 0.3s ease;
+    }
+
+    .card .desc {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      transition: color 0.3s ease;
+    }
+
+    .remove-btn {
+      border-radius: 20px;
+      border-color: var(--remove-btn-border);
+      border-width: 1px;
+      border-style: solid;
+      color: var(--text-primary);
+      padding: 5px 10px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease, color 0.3s ease;
+      user-select: none;
+    }
+
+    .remove-btn:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-color: hsl(0, 70%, 60%);
+      transform: translateY(-1px);
+    }
+
+    .remove-btn:active {
+      transform: translateY(0);
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .switcher {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 24px;
+      cursor: pointer;
+    }
+
+    .switcher input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .switcher .slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--bg-secondary);
+      border-radius: 24px;
+      transition: background-color 0.3s;
+    }
+
+    .switcher .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: transform 0.3s;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .switcher input:checked+.slider {
+      background-color: hsl(15, 85%, 55%);
+    }
+
+    .switcher input:checked+.slider:before {
+      transform: translateX(24px);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="container">
+
+      <div class="header">
+        <img src="./assets/images/logo.svg">
+        <div class="theme-wrapper" id="theme-toggle">
+          <img class="theme-switcher" src="./assets/images/icon-sun.svg" alt="Toggle theme">
+        </div>
+      </div>
+
+      <div class="body">
+        <div class="body-header">
+          <div class="body-header-title">Extensions List</div>
+          <div class="status-filter">
+            <div class="btn active" data-filter="all">All</div>
+            <div class="btn" data-filter="active">Active</div>
+            <div class="btn" data-filter="inactive">Inactive</div>
+          </div>
+        </div>
+        <div class="body-content">
+          <div class="card">
+            <div class="row1">
+              <div class="card-r1-c1">
+                <img src="./assets/images/logo-devlens.svg">
+              </div>
+              <div class="card-r1-c2">
+                <div class="title">DevLens</div>
+                <div class="desc">Quickly inspect page layouts and visualize element boundaries.</div>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="remove-btn">Remove</div>
+              <label class="switcher">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="card">
+            <div class="row1">
+              <div class="card-r1-c1">
+                <img src="./assets/images/logo-style-spy.svg">
+              </div>
+              <div class="card-r1-c2">
+                <div class="title">StyleSpy</div>
+                <div class="desc">Instantly analyze and copy CSS from any webpage element.</div>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="remove-btn">Remove</div>
+              <label class="switcher">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="card">
+            <div class="row1">
+              <div class="card-r1-c1">
+                <img src="./assets/images/logo-speed-boost.svg">
+              </div>
+              <div class="card-r1-c2">
+                <div class="title">SpeedBoost</div>
+                <div class="desc">Optimizes browser resource usage to accelerate page loading.</div>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="remove-btn">Remove</div>
+              <label class="switcher">
+                <input type="checkbox">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="card">
+            <div class="row1">
+              <div class="card-r1-c1">
+                <img src="./assets/images/logo-json-wizard.svg">
+              </div>
+              <div class="card-r1-c2">
+                <div class="title">JSONWizard</div>
+                <div class="desc">Formats, validates, and prettifies JSON responses in-browser.</div>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="remove-btn">Remove</div>
+              <label class="switcher">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="card">
+            <div class="row1">
+              <div class="card-r1-c1">
+                <img src="./assets/images/logo-tab-master-pro.svg">
+              </div>
+              <div class="card-r1-c2">
+                <div class="title">TabMaster Pro</div>
+                <div class="desc">Organizes browser tabs into groups and sessions.</div>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="remove-btn">Remove</div>
+              <label class="switcher">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="card">
+            <div class="row1">
+              <div class="card-r1-c1">
+                <img src="./assets/images/logo-viewport-buddy.svg">
+              </div>
+              <div class="card-r1-c2">
+                <div class="title">ViewportBuddy</div>
+                <div class="desc">Simulates various screen resolutions directly within the browser.</div>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="remove-btn">Remove</div>
+              <label class="switcher">
+                <input type="checkbox">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="card">
+            <div class="row1">
+              <div class="card-r1-c1">
+                <img src="./assets/images/logo-markup-notes.svg">
+              </div>
+              <div class="card-r1-c2">
+                <div class="title">Markup Notes</div>
+                <div class="desc">Enables annotation and notes directly onto webpages for collaborative debugging.</div>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="remove-btn">Remove</div>
+              <label class="switcher">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="card">
+            <div class="row1">
+              <div class="card-r1-c1">
+                <img src="./assets/images/logo-grid-guides.svg">
+              </div>
+              <div class="card-r1-c2">
+                <div class="title">GridGuides</div>
+                <div class="desc">Overlay customizable grids and alignment guides on any webpage.</div>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="remove-btn">Remove</div>
+              <label class="switcher">
+                <input type="checkbox">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="card">
+            <div class="row1">
+              <div class="card-r1-c1">
+                <img src="./assets/images/logo-palette-picker.svg">
+              </div>
+              <div class="card-r1-c2">
+                <div class="title">Palette Picker</div>
+                <div class="desc">Instantly extracts color palettes from any webpage.</div>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="remove-btn">Remove</div>
+              <label class="switcher">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="card">
+            <div class="row1">
+              <div class="card-r1-c1">
+                <img src="./assets/images/logo-link-checker.svg">
+              </div>
+              <div class="card-r1-c2">
+                <div class="title">LinkChecker</div>
+                <div class="desc">Scans and highlights broken links on any page.</div>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="remove-btn">Remove</div>
+              <label class="switcher">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="card">
+            <div class="row1">
+              <div class="card-r1-c1">
+                <img src="./assets/images/logo-dom-snapshot.svg">
+              </div>
+              <div class="card-r1-c2">
+                <div class="title">DOM Snapshot</div>
+                <div class="desc">Capture and export DOM structures quickly.</div>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="remove-btn">Remove</div>
+              <label class="switcher">
+                <input type="checkbox">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="card">
+            <div class="row1">
+              <div class="card-r1-c1">
+                <img src="./assets/images/logo-console-plus.svg">
+              </div>
+              <div class="card-r1-c2">
+                <div class="title">ConsolePlus</div>
+                <div class="desc">Enhanced developer console with advanced filtering and logging.</div>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="remove-btn">Remove</div>
+              <label class="switcher">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
+    Coded by <a href="#">Your Name Here</a>.
+  </div>
+
+  <script>
+    // Theme toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const themeToggle = document.getElementById('theme-toggle');
+      const themeIcon = document.querySelector('.theme-switcher');
+      const html = document.documentElement;
+
+      // Check for saved theme preference or default to dark
+      const currentTheme = localStorage.getItem('theme') || 'dark';
+      html.setAttribute('data-theme', currentTheme);
+      
+      // Set initial icon
+      if (currentTheme === 'light') {
+        themeIcon.src = './assets/images/icon-moon.svg';
+      } else {
+        themeIcon.src = './assets/images/icon-sun.svg';
+      }
+
+      // Toggle theme on click
+      themeToggle.addEventListener('click', function() {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        // Update icon
+        if (newTheme === 'light') {
+          themeIcon.src = './assets/images/icon-moon.svg';
+        } else {
+          themeIcon.src = './assets/images/icon-sun.svg';
+        }
+      });
+
+      // Remove functionality
+      const removeButtons = document.querySelectorAll('.remove-btn');
+      
+      removeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Find the closest card parent element
+          const card = this.closest('.card');
+          if (card) {
+            // Add a fade-out animation before removing
+            card.style.transition = 'opacity 0.3s ease-out';
+            card.style.opacity = '0';
+            
+            // Remove the card after animation
+            setTimeout(() => {
+              card.remove();
+            }, 300);
+          }
+        });
+      });
+
+      // Filter functionality
+      const filterButtons = document.querySelectorAll('.status-filter .btn');
+      const cards = document.querySelectorAll('.body-content > .card');
+
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Remove active class from all buttons
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          // Add active class to clicked button
+          this.classList.add('active');
+
+          const filter = this.getAttribute('data-filter');
+
+          cards.forEach(card => {
+            const switcher = card.querySelector('.switcher input');
+            const isActive = switcher && switcher.checked;
+
+            if (filter === 'all') {
+              card.style.display = 'flex';
+              card.style.opacity = '1';
+            } else if (filter === 'active' && isActive) {
+              card.style.display = 'flex';
+              card.style.opacity = '1';
+            } else if (filter === 'inactive' && !isActive) {
+              card.style.display = 'flex';
+              card.style.opacity = '1';
+            } else {
+              card.style.transition = 'opacity 0.3s ease-out';
+              card.style.opacity = '0';
+              setTimeout(() => {
+                card.style.display = 'none';
+              }, 300);
+            }
+          });
+        });
+      });
+
+      // Update filter when switch is toggled
+      cards.forEach(card => {
+        const switcher = card.querySelector('.switcher input');
+        if (switcher) {
+          switcher.addEventListener('change', function() {
+            const activeFilter = document.querySelector('.status-filter .btn.active');
+            if (activeFilter) {
+              activeFilter.click();
+            }
+          });
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
