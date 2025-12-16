@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Weather app</title>
+
+  <style>
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+    div {
+        background-color: antiquewhite;
+        margin: 10px;
+        border-radius: 20px;
+        border-color: black;
+        border-style: solid;
+        text-align: center;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .body-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .body-left {
+        display: flex;
+        flex: 3;
+        flex-direction: column;
+    }
+
+    .body-right {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+    }
+
+    .some-data {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .daily {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .body-left > div {
+        flex: 1;
+    }
+
+    .body-left > div > div {
+        flex: 1;
+    }
+
+    @media screen and (width <= 768px) {
+        .body-wrapper-sm {
+            flex-direction: column;
+        }
+    }
+</style>
+</head>
+<body>
+  <div class="container">
+      <div class="header">
+        <img src="./assets/images/logo.svg">
+        <div class="dropdown">Units</div>
+      </div>
+      <div class="title">How's the sky looking today?</div>
+      <div class="search">search</div>
+      <div class="body-wrapper body-wrapper-sm">
+          <div class="body-left">
+              <div class="current">20 C</div>
+              <div class="some-data">
+                  <div class="data-item">1</div>
+                  <div class="data-item">2</div>
+                  <div class="data-item">3</div>
+                  <div class="data-item">4</div>
+              </div>
+              <div class="daily">
+                  <div class="daily-item">1x1</div>
+                  <div class="daily-item">1x1</div>
+                  <div class="daily-item">1x1</div>
+                  <div class="daily-item">1x1</div>
+                  <div class="daily-item">1x1</div>
+                  <div class="daily-item">1x1</div>
+                  <div class="daily-item">1x1</div>
+              </div>
+          </div>
+          <div class="body-right">
+              <div class="hour-item">caiya tan</div>
+              <div class="hour-item">caiya tan</div>
+              <div class="hour-item">caiya tan</div>
+              <div class="hour-item">caiya tan</div>
+              <div class="hour-item">caiya tan</div>
+              <div class="hour-item">caiya tan</div>
+              <div class="hour-item">caiya tan</div>
+              <div class="hour-item">caiya tan</div>
+          </div>
+      </div>
+  </div>
+</body>
+<body>
+
+  
+
+  Switch to Imperial/Metric
+
+  Temperature
+
+  Celsius (°C)
+  Fahrenheit (°F)
+
+  Wind Speed
+
+  km/h
+  mph
+
+  Precipitation
+
+  Millimeters (mm)
+  Inches (in)
+
+  
+
+  Search for a city, e.g., New York
+  Search
+
+  Feels like
+  <!-- Insert temperature here -->
+
+  Humidity
+  <!-- Insert humidity here -->
+
+  Wind
+  <!-- Insert wind here -->   
+  
+  Precipitation
+  <!-- Insert precipitation here -->
+
+  Daily forecast
+  <!-- Insert daily forecast for the next 7 days here -->
+
+  Hourly forecast
+  <!-- Insert hourly forecast for the selected day here -->
+
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
+    Coded by <a href="#">Your Name Here</a>.
+  </div>
+</body>
+</html>

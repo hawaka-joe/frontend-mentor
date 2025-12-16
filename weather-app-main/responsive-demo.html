@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            background-color: antiquewhite;
+            margin: 10px;
+            border-radius: 20px;
+            border-color: black;
+            border-style: solid;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .body-wrapper {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .body-left {
+            display: flex;
+            flex: 3;
+            flex-direction: column;
+        }
+
+        .body-right {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+        }
+
+        .some-data {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .daily {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .body-left > div {
+            flex: 1;
+        }
+
+        .body-left > div > div {
+            flex: 1;
+        }
+
+        @media screen and (width <= 768px) {
+            .body-wrapper-sm {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">header</div>
+        <div class="title">title</div>
+        <div class="search">search</div>
+        <div class="body-wrapper body-wrapper-sm">
+            <div class="body-left">
+                <div class="current">20 C</div>
+                <div class="some-data">
+                    <div class="data-item">1</div>
+                    <div class="data-item">2</div>
+                    <div class="data-item">3</div>
+                    <div class="data-item">4</div>
+                </div>
+                <div class="daily">
+                    <div class="daily-item">1x1</div>
+                    <div class="daily-item">1x1</div>
+                    <div class="daily-item">1x1</div>
+                    <div class="daily-item">1x1</div>
+                    <div class="daily-item">1x1</div>
+                    <div class="daily-item">1x1</div>
+                    <div class="daily-item">1x1</div>
+                </div>
+            </div>
+            <div class="body-right">
+                <div class="hour-item">caiya tan</div>
+                <div class="hour-item">caiya tan</div>
+                <div class="hour-item">caiya tan</div>
+                <div class="hour-item">caiya tan</div>
+                <div class="hour-item">caiya tan</div>
+                <div class="hour-item">caiya tan</div>
+                <div class="hour-item">caiya tan</div>
+                <div class="hour-item">caiya tan</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
