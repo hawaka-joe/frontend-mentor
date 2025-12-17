@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分组下拉框示例</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            background-color: hsl(243, 96%, 9%);
+            color: hsl(0, 0%, 100%);
+            padding: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .dropdown-container {
+            position: relative;
+            width: 300px;
+        }
+
+        .dropdown-button {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: hsl(243, 23%, 24%);
+            border: 1px solid hsl(243, 23%, 30%);
+            border-radius: 8px;
+            color: hsl(0, 0%, 100%);
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-button:hover {
+            background-color: hsl(243, 23%, 30%);
+        }
+
+        .dropdown-button:focus {
+            outline: 2px solid hsl(233, 67%, 56%);
+            /* 焦点指示更清晰，不会紧贴边框，提升可读性。 */
+            outline-offset: 2px;
+        }
+
+        .dropdown-button::after {
+            content: '▼';
+            font-size: 12px;
+            transition: transform 0.2s;
+        }
+
+        .dropdown-button.open::after {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            right: 0;
+            background-color: hsl(243, 23%, 24%);
+            border: 1px solid hsl(243, 23%, 30%);
+            border-radius: 8px;
+            display: none;
+            z-index: 1000;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-group {
+            padding: 8px 0;
+        }
+
+        .dropdown-group-label {
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: hsl(240, 6%, 70%);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .dropdown-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dropdown-item:hover {
+            background-color: hsl(243, 23%, 30%);
+        }
+
+        .dropdown-item.selected {
+            background-color: hsl(233, 67%, 56%);
+        }
+
+        .dropdown-item input[type="radio"] {
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .dropdown-item label {
+            cursor: pointer;
+            flex: 1;
+            user-select: none;
+        }
+
+        /* 滚动条样式 */
+        .dropdown-menu::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .dropdown-menu::-webkit-scrollbar-track {
+            background: hsl(243, 27%, 20%);
+            border-radius: 4px;
+        }
+
+        .dropdown-menu::-webkit-scrollbar-thumb {
+            background: hsl(243, 23%, 30%);
+            border-radius: 4px;
+        }
+
+        .dropdown-menu::-webkit-scrollbar-thumb:hover {
+            background: hsl(243, 23%, 40%);
+        }
+    </style>
+</head>
+<body>
+    <div class="dropdown-container">
+        <button class="dropdown-button" id="dropdownButton">
+            <span id="selectedText">Units</span>
+        </button>
+        <div class="dropdown-menu" id="dropdownMenu">
+            <div class="dropdown-group">
+                <div class="dropdown-group-label">Temperature</div>
+                <div class="dropdown-item">
+                    <input type="radio" name="temperature" id="celsius" value="celsius" checked>
+                    <label for="celsius">Celsius (°C)</label>
+                </div>
+                <div class="dropdown-item">
+                    <input type="radio" name="temperature" id="fahrenheit" value="fahrenheit">
+                    <label for="fahrenheit">Fahrenheit (°F)</label>
+                </div>
+            </div>
+            <div class="dropdown-group">
+                <div class="dropdown-group-label">Wind Speed</div>
+                <div class="dropdown-item">
+                    <input type="radio" name="windSpeed" id="kmh" value="kmh" checked>
+                    <label for="kmh">km/h</label>
+                </div>
+                <div class="dropdown-item">
+                    <input type="radio" name="windSpeed" id="mph" value="mph">
+                    <label for="mph">mph</label>
+                </div>
+            </div>
+            <div class="dropdown-group">
+                <div class="dropdown-group-label">Precipitation</div>
+                <div class="dropdown-item">
+                    <input type="radio" name="precipitation" id="mm" value="mm" checked>
+                    <label for="mm">Millimeters (mm)</label>
+                </div>
+                <div class="dropdown-item">
+                    <input type="radio" name="precipitation" id="inches" value="inches">
+                    <label for="inches">Inches (in)</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dropdownButton = document.getElementById('dropdownButton');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        const selectedText = document.getElementById('selectedText');
+        const dropdownItems = document.querySelectorAll('.dropdown-item');
+
+        // 标签映射
+        const labelMap = {
+            'celsius': 'Celsius (°C)',
+            'fahrenheit': 'Fahrenheit (°F)',
+            'kmh': 'km/h',
+            'mph': 'mph',
+            'mm': 'Millimeters (mm)',
+            'inches': 'Inches (in)'
+        };
+
+        // 获取所有选中的值
+        function getSelectedValues() {
+            const selected = {};
+            document.querySelectorAll('input[type="radio"]:checked').forEach(radio => {
+                const groupName = radio.name;
+                selected[groupName] = {
+                    value: radio.value,
+                    label: labelMap[radio.value]
+                };
+            });
+            return selected;
+        }
+
+        // 更新按钮文本
+        function updateButtonText() {
+            const selected = getSelectedValues();
+            // 可以显示所有选中的值，或者只显示 "Units"
+            // 这里保持显示 "Units"，但可以根据需要修改
+            selectedText.textContent = 'Units';
+        }
+
+        // 切换下拉菜单
+        dropdownButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = dropdownMenu.classList.contains('show');
+            if (isOpen) {
+                closeDropdown();
+            } else {
+                openDropdown();
+            }
+        });
+
+        // 点击外部关闭下拉菜单
+        document.addEventListener('click', (e) => {
+            if (!dropdownButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                closeDropdown();
+            }
+        });
+
+        // 处理所有单选按钮的变化
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    updateSelectedState();
+                    updateButtonText();
+                    // 不自动关闭下拉菜单，让用户可以选择多个分组的值
+                }
+            });
+        });
+
+        // 点击选项项也可以选择
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                const radio = item.querySelector('input[type="radio"]');
+                if (radio) {
+                    radio.checked = true;
+                    radio.dispatchEvent(new Event('change'));
+                }
+            });
+        });
+
+        // 更新选中状态样式
+        function updateSelectedState() {
+            dropdownItems.forEach(item => {
+                const radio = item.querySelector('input[type="radio"]');
+                if (radio && radio.checked) {
+                    item.classList.add('selected');
+                } else {
+                    item.classList.remove('selected');
+                }
+            });
+        }
+
+        // 打开下拉菜单
+        function openDropdown() {
+            dropdownMenu.classList.add('show');
+            dropdownButton.classList.add('open');
+            updateSelectedState();
+        }
+
+        // 关闭下拉菜单
+        function closeDropdown() {
+            dropdownMenu.classList.remove('show');
+            dropdownButton.classList.remove('open');
+        }
+
+        // 初始化
+        updateSelectedState();
+        updateButtonText();
+    </script>
+</body>
+</html>
