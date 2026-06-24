@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=League+Spartan:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=League+Spartan:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <title>Huddle</title>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .attribution { font-size: 0.6875rem; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+
+    body {
+      margin: 0;
+      font-size: 16px;
+      color: white;
+    }
+
+    #app {
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-image: url('./images/bg-desktop.svg');
+      min-height: 100vh;
+      margin: 0;
+      background-color: hsl(257, 40%, 49%);
+    }
+
+    #content-wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      padding: 0 5vw;
+    }
+
+    .header {
+      margin-top: 5vh;
+      flex: 0 0 auto;
+    }
+
+    .footer {
+      margin-bottom: 5vh;
+      flex: 0 0 auto;
+    }
+
+    .body-wrapper {
+      margin-top: 10vh;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex: 1;
+      gap: 20px;
+    }
+
+    .body-left {
+      flex-basis: 60%;
+    }
+
+    .body-left-image {
+      width: 90%;
+      height: auto;
+    }
+
+    .body-right {
+      margin-top: 10vh;
+      flex-basis: 40%;
+      gap: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: flex-start;
+    }
+
+    .body-right-title {
+      font-family: "Work Sans", sans-serif;
+      font-weight: 600;
+      font-size: clamp(2rem, 4vw, 4rem);
+    }
+
+    .body-right-description {
+      font-family: "Work Sans", sans-serif;
+      font-weight: 400;
+      font-size: clamp(1rem, 0.5rem + 1vw, 1.5rem);
+      line-height: 1.5;
+    }
+    
+    .body-right-button {
+      background-color: white;
+      color: hsl(257, 40%, 49%);
+      border-radius: 2000px;
+      padding: 20px 60px;
+      text-decoration: none;
+      font-family: "Work Sans", sans-serif;
+      font-weight: 400;
+      font-size: clamp(1rem, 0.5rem + 1vw, 1.5rem);
+    }
+
+    .icon {
+      color: white;
+    }
+
+    .icon-wrapper {
+      height: 10vh;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      gap: 20px;
+    }
+
+    .fa-brands {
+      font-size: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      #app {
+        background-image: url('./images/bg-mobile.svg');
+      }
+
+      #content-wrapper {
+        height: auto;
+        min-height: 100vh;
+        padding: 2rem 2rem 2.5rem;
+      }
+
+      .header {
+        margin-top: 0;
+      }
+
+      .body-wrapper {
+        margin-top: 2rem;
+        flex: 0 0 auto;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .body-left {
+        flex-basis: auto;
+        width: 100%;
+        text-align: center;
+      }
+
+      .body-left-image {
+        width: 100%;
+        max-width: 24rem;
+      }
+
+      .body-right {
+        margin-top: 0;
+        flex-basis: auto;
+        width: 100%;
+        align-items: center;
+        text-align: center;
+        gap: 1.5rem;
+      }
+
+      .body-right-title {
+        font-size: clamp(1.5rem, 6vw, 2rem);
+      }
+
+      .body-right-description {
+        font-size: 1rem;
+      }
+
+      .body-right-button {
+        padding: 0.875rem 4rem;
+        font-size: 1rem;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .icon-wrapper {
+        justify-content: center;
+        height: auto;
+        margin-top: 2rem;
+      }
+
+      .fa-brands {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body id="app">
+
+  <div>
+    <div id="content-wrapper">
+      <div class="header">
+        <img src="./images/logo.svg" alt="Huddle logo" class="logo">
+      </div>
+      <div class="body-wrapper">
+        <div class="body-left">
+          <img src="./images/illustration-mockups.svg" alt="Illustration of people using Huddle" class="body-left-image">
+        </div>
+        <div class="body-right">
+          <h1 class="body-right-title">Build The Community Your Fans Will Love</h1>
+          <p class="body-right-description">Huddle re-imagines the way we build communities. You have a voice, but so does your audience. Create connections with your users as you engage in genuine discussion.</p>
+          <a href="#" class="body-right-button">Register</a>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="icon-wrapper">
+          <a href="" class="icon"><i class="fa-brands fa-facebook"></i></a>
+          <a href="" class="icon"><i class="fa-brands fa-twitter"></i></a>
+          <a href="" class="icon"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
