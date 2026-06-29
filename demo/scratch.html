@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+
+    <style>
+        .box1 {
+            text-align: center;
+            line-height: 40px;
+            border: 1px solid hsl(228, 45%, 44%);
+            border-radius: 5px;
+            width: 40px;
+            height: 40px;
+        }
+
+        .box2 {
+            text-align: center;
+            line-height: 40px;
+            border: 1px solid hsl(228, 45%, 44%);
+            border-radius: 5px;
+            width: 40px;
+            height: 40px;
+        }
+
+        .anchor {
+            anchor-name: --my-anchor;
+            width: 80px;
+            height: 80px;
+            background: orange;
+            margin: 110px 0 0 240px; /* 把 anchor 放到容器内偏右 */
+        }
+
+        .target {
+            position: absolute;
+            position-anchor: --my-anchor;
+            position-area: span-top left;
+            background: rebeccapurple;
+            color: white;
+            margin: 0;
+            /* 不要写 width / height */
+        }
+        
+
+        .container {
+            position: relative;
+            width: 400px;
+            height: 300px;
+            border: 2px solid black;
+            margin: 40px auto;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="anchor box1">1</div>
+        <div class="target box2">2</div>
+    </div>
+</body>
+</html>

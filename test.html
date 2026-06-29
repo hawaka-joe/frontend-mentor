@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+
+    <style>
+        div {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+        }
+
+        .anchor {
+            anchor-name: --my-anchor;
+            background-color: yellow;
+        }
+
+        .target {
+            background-color: rebeccapurple;
+            position-anchor: --my-anchor;
+            position-area: top;
+        }
+    </style>
+</head>
+<body>
+    <div class="anchor">1</div>
+    <div class="target">2</div>
+</body>
+</html>

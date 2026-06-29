@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- displays site properly based on user's device -->
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=League+Spartan:wght@100..900&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <title>Frontend Mentor | Ping coming soon page</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+        html {
+            font-size: 20px;
+            height: 100%;
+        }
+
+        body {
+            padding: 0;
+            margin: 0 auto;
+            font-family: "Work Sans", sans-serif;
+            width: 60vw;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .header {
+            margin-top: 4rem;
+        }
+
+        .title {
+            font-size: 2rem;
+            margin-top: 2rem;
+            letter-spacing: 1px;
+            word-spacing: 0px;
+        }
+
+        .subtitle {
+            margin-top: 0.75rem;
+            font-weight: 300;
+            font-size: 1rem;
+        }
+
+        .form {
+            margin: 2rem 0 0rem 0;
+            font-size: 0.75rem;
+        }
+
+        .btn-input {
+            outline: none;
+            border-width: 1px;
+            padding: 1rem 200px 1rem 20px;
+            height: 2rem;
+            box-sizing: border-box;
+            border-radius: 999px;
+            margin-right: 1rem;
+        }
+
+        .submit-btn {
+            outline: none;
+            border-width: 1px;
+            height: 2rem;
+            box-sizing: border-box;
+            border-radius: 999px;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 3rem;
+            background-color: hsl(223, 87%, 63%);
+        }
+
+        .footer {
+            margin: 2rem 0 2rem 0;
+            font-size: 0.75rem;
+        }
+
+        .body-img {
+            margin: 4rem 0 1rem 0;
+            min-height: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .body-img img {
+            width: 30rem;
+        }
+
+        .icon-wrapper {
+            justify-content: center;
+            height: 1rem;
+            margin-top: 2rem;
+        }
+
+        .fa-brands {
+            font-size: 0.75rem;
+        }
+
+        .footer {
+            font-weight: 300;
+            font-size: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="header">
+        <img src="./images/logo.svg" alt="Ping logo"/>
+    </div>
+    <div class="title">
+        <span style="font-weight: 200">We are launching </span><span style="font-weight: bold;">soon!</span>
+    </div>
+    <div class="subtitle">
+        Subscribe and get notified
+    </div>
+    <div class="form">
+        <input class="btn-input" placeholder="Your email address..." type="email"/>
+        <div class="submit-btn">
+            Notify Me
+        </div>
+    </div>
+    <div class="body-img">
+        <img src="./images/illustration-dashboard.png" alt=""/>
+    </div>
+    <div class="icon-wrapper">
+        <a href="" class="icon"><i class="fa-brands fa-facebook"></i></a>&nbsp;&nbsp;&nbsp;
+        <a href="" class="icon"><i class="fa-brands fa-twitter"></i></a>&nbsp;&nbsp;&nbsp;
+        <a href="" class="icon"><i class="fa-brands fa-instagram"></i></a>
+    </div>
+    <div class="footer">
+        &copy; Copyright Ping. All rights reserved.
+    </div>
+</div>
+
+</body>
+</html>
